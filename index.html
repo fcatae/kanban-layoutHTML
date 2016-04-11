@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Kanban</title>
     <link rel="stylesheet" href="index.css">
+    <script src="lib/jquery.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -15,17 +16,25 @@
         </div>
         <h1 class="title">Active</h1>
         <div class="folder">
-            <div id="t1" class="task" ondragstart="dragstart(event, this)" draggable="true">
+            <div id="t1" class="task">
                 <img class="task-picture" src="user.png">
                 <span class="task-text" contenteditable>Projeto Galinha Pintadinha</span>                               
             </div>
-            <div class="task">
+            <div id="t2" class="task">
                 <span class="task-text2">Projeto Galinha Pintadinha</span>
                 <span class="tag tag-isv">ISV</span>                               
                 <span class="tag tag-metric">metric</span>                               
-            </div>            
+            </div>
+            <div id="t3" class="task task-default">
+                <span class="task-text2">Projeto Galinha Pintadinha</span>
+                <span class="task-description">1d</span>
+                <div class="tag-container">
+                    <span class="tag tag-isv">ISV</span>                               
+                    <span class="tag tag-metric">metric</span>                               
+                </div>
+            </div>              
         </div>
-        <div class="folder" ondragover="dragover(event)" ondrop="drop(event, this)">
+        <div class="folder">
         </div>        
     </div>
     <script>
@@ -34,17 +43,27 @@
         }
         
         function dragover(ev) {
-            ev.dataTransfer.dropEffect = 'none'
             ev.preventDefault();
         }
         
-        function drop(ev, target) {
+        function drop(ev) {
+            var target = this;
             ev.preventDefault();
             var data = ev.dataTransfer.getData('text');
             var elem = document.getElementById(data);
-            var target = ev.target;
             target.appendChild(elem)
         }
+        var tasks = $('.task');
+        tasks.map(function(i, task) {
+           task.draggable = true;
+           task.addEventListener('dragstart', dragstart);
+        });
+        
+        var folders = $('.folder');
+        folders.map(function(i, folder) {
+            folder.addEventListener('dragover', dragover);
+            folder.addEventListener('drop', drop.bind(folder));            
+        });
     </script>
 </body>
 </html>

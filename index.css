@@ -28,6 +28,22 @@ body {
     width: 16rem;
 }
 
+.task-default {
+    background-color: white;
+    border: 1px solid #404040;
+    padding: .3rem;
+    margin: 5px;
+    width: 10rem;
+    height: 5.5rem;
+    position: relative;
+}
+
+.tag-container {
+    position: absolute;
+    right: .5em;
+    bottom: .5em;
+}
+
 .task-picture {
     width: 2rem;
 }
