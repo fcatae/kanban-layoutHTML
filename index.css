@@ -1,10 +1,18 @@
 body {
-    background-color: lightgoldenrodyellow;    
+    --background-color: lightgoldenrodyellow;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: smaller;
+}
+
+.add-button {
+    background-color: transparent;
+    width: 1rem;
+    height: 1rem;
 }
 
 .folder {
-    background-color: #d08080;
-    border: 4px dashed darkred;
+    /*background-color: #d08080;*/
+    border: 2px solid darkred;
     border-radius: 8px;
     padding: 10px;
     margin: 10px;
@@ -16,19 +24,51 @@ body {
     background-color: white;
     border: 1px solid #404040;
     padding: .3rem;
+    margin: 5px;
     width: 16rem;
-    vertical-align: top;
 }
 
 .task-picture {
-    width: 3rem;
+    width: 2rem;
 }
 
-.task-text {
+.task-text { 
+    box-sizing: content-box;
+    width: 10rem;
+    height: 2.3rem;
     vertical-align: top;
+    position: relative;
+    overflow: hidden; 
+    border: 1px solid transparent;
+}
+
+.task-text2 { 
+    box-sizing: content-box;
+    width: 16rem;
+    height: 2.3rem;
+    vertical-align: top;
+    position: relative;
+    overflow: hidden; 
     border: 1px solid transparent;
 }
 
 .task-text:focus {
     border: 1px solid lightblue;
+}
+
+.tag {
+    font-weight: bold;
+    font-size: x-small;
+    border-radius: 2px;
+    padding: 2px .5rem;
+}
+
+.tag-isv {    
+    background-color: rebeccapurple;
+    color: white;
+}
+
+.tag-metric {    
+    background-color: darkgreen;
+    color: white;
 }

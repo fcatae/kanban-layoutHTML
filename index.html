@@ -7,15 +7,44 @@
 </head>
 <body>
     <div class="container">
-        <div class="folder">
-            <div class="task">
-                <img class="task-picture" src="user.png">
-                <span class="task-text" contenteditable>abc abc abc</span>
-                
+        <div>
+            <div>
+                <img class="add-button" src="add.png">                               
+                <input type="add-text">
             </div>
         </div>
+        <h1 class="title">Active</h1>
         <div class="folder">
+            <div id="t1" class="task" ondragstart="dragstart(event, this)" draggable="true">
+                <img class="task-picture" src="user.png">
+                <span class="task-text" contenteditable>Projeto Galinha Pintadinha</span>                               
+            </div>
+            <div class="task">
+                <span class="task-text2">Projeto Galinha Pintadinha</span>
+                <span class="tag tag-isv">ISV</span>                               
+                <span class="tag tag-metric">metric</span>                               
+            </div>            
+        </div>
+        <div class="folder" ondragover="dragover(event)" ondrop="drop(event, this)">
         </div>        
     </div>
+    <script>
+        function dragstart(ev) {
+            ev.dataTransfer.setData('text', ev.target.id);
+        }
+        
+        function dragover(ev) {
+            ev.dataTransfer.dropEffect = 'none'
+            ev.preventDefault();
+        }
+        
+        function drop(ev, target) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData('text');
+            var elem = document.getElementById(data);
+            var target = ev.target;
+            target.appendChild(elem)
+        }
+    </script>
 </body>
 </html>
