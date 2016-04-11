@@ -1,0 +1,34 @@
+body {
+    background-color: lightgoldenrodyellow;    
+}
+
+.folder {
+    background-color: #d08080;
+    border: 4px dashed darkred;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    width: 400px;
+    height: 200px;
+}
+
+.task {
+    background-color: white;
+    border: 1px solid #404040;
+    padding: .3rem;
+    width: 16rem;
+    vertical-align: top;
+}
+
+.task-picture {
+    width: 3rem;
+}
+
+.task-text {
+    vertical-align: top;
+    border: 1px solid transparent;
+}
+
+.task-text:focus {
+    border: 1px solid lightblue;
+}
