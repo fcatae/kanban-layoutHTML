@@ -1,37 +1,37 @@
 (function() {
 
-    function initTaskComponent(task) {
+    function initTaskComponent(domTaskElement) {
 
-        function dragstart(ev) {
+        // Drag START
+        domTaskElement.addEventListener('dragstart', function dragstart(ev) {
             ev.dataTransfer.setData('text', ev.target.id);
-        }
-                
-        task.draggable = true;
-        task.addEventListener('dragstart', dragstart);
+        });
+        
+        domTaskElement.draggable = true;
     }
 
-    function initFolderComponent(folder) {
+    function initFolderComponent(domFolderElement, callback) {
 
-        var currentFolder = folder;
-
-        function dragover(ev) {
+        var DOMElem = domFolderElement;
+        var DOMcallback = callback;
+        
+        // Drag DURING
+        domFolderElement.addEventListener('dragover', function dragover(ev) {
             ev.preventDefault();
-        }
+        });
 
-        function drop(ev) {
+        // Drag ENDS
+        domFolderElement.addEventListener('drop', function drop(ev, callback) {
             ev.preventDefault();
             var data = ev.dataTransfer.getData('text');
 
-            assignTask(data);
-        }
+            DOMcallback(DOMElem, data);
+        });    
+    }
 
-        function assignTask(data) {
-            var elem = document.getElementById(data);
-            currentFolder.appendChild(elem)
-        }
-
-        folder.addEventListener('dragover', dragover);
-        folder.addEventListener('drop', drop);    
+    function assign(target, data) {
+        var elem = document.getElementById(data);
+        target.appendChild(elem)
     }
 
     var tasks = $('.task');
@@ -41,7 +41,7 @@
 
     var folders = $('.folder');
     folders.map(function(i, folder) {
-        initFolderComponent(folder);           
+        initFolderComponent(folder, assign);           
     });
 
 })();
