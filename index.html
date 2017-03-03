@@ -37,33 +37,6 @@
         <div class="folder">
         </div>        
     </div>
-    <script>
-        function dragstart(ev) {
-            ev.dataTransfer.setData('text', ev.target.id);
-        }
-        
-        function dragover(ev) {
-            ev.preventDefault();
-        }
-        
-        function drop(ev) {
-            var target = this;
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData('text');
-            var elem = document.getElementById(data);
-            target.appendChild(elem)
-        }
-        var tasks = $('.task');
-        tasks.map(function(i, task) {
-           task.draggable = true;
-           task.addEventListener('dragstart', dragstart);
-        });
-        
-        var folders = $('.folder');
-        folders.map(function(i, folder) {
-            folder.addEventListener('dragover', dragover);
-            folder.addEventListener('drop', drop.bind(folder));            
-        });
-    </script>
+    <script src="components.js"></script>
 </body>
 </html>
