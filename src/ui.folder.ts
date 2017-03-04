@@ -1,7 +1,7 @@
 class UIFolder {
 
     public onDrop = function(folderId: string, taskId: string, event: DragEvent) {};
-    public onDragOver = function(folderId: string, taskId: string, event: DragEvent) { return true; };
+    public onAllowDrop = function(folderId: string, taskId: string, event: DragEvent) { return true; };
 
     _folderId: string;
 
@@ -12,47 +12,29 @@ class UIFolder {
 
         this._folderId = domFolderElement.id;
 
-        // Drag DURING
-        domFolderElement.addEventListener('dragover', ev => {
+        // Attach events
+        domFolderElement.addEventListener('dragover', ev => this.draggingElementOver(ev));
+        domFolderElement.addEventListener('drop', ev => this.finishDrop(ev));    
+    }
 
-            var taskId = ev.dataTransfer.getData('text');
+    private draggingElementOver(ev: DragEvent) {
+        
+        var taskId = ev.dataTransfer.getData('text');
 
-            if( this.onDragOver(this._folderId, taskId, ev) ) {
-                ev.preventDefault();
-            }
-        });
+        if( this.onAllowDrop(this._folderId, taskId, ev) ) {
+            ev.preventDefault();
+        }
+    }
 
-        // Drag ENDS
-        domFolderElement.addEventListener('drop', ev => {
+    private finishDrop(ev: DragEvent) {
 
-            var taskId = ev.dataTransfer.getData('text');
+        var taskId = ev.dataTransfer.getData('text');
 
-            if( this.onDragOver(this._folderId, taskId, ev) ) {
-                ev.preventDefault();
-                
-                this.onDrop(this._folderId, taskId, ev);
-            }           
-
-        });    
+        if( this.onAllowDrop(this._folderId, taskId, ev) ) {
+            ev.preventDefault();
+            
+            this.onDrop(this._folderId, taskId, ev);
+        }           
     }
 
 }
-
-
-// Setup
-var folders : any = document.querySelectorAll('.folder');
-var i = 0;
-
-folders.forEach( folder => {
-
-    folder.id = "folder_id" + (i++).toString()
-
-    var f = new UIFolder(folder);
-    
-    f.onDrop = function assign(targetid, data) {
-        var target = document.getElementById(targetid);
-        var elem = document.getElementById(data);
-        target.appendChild(elem);
-    };
-
-} );  
