@@ -1,15 +1,5 @@
 (function() {
 
-    function initTaskComponent(domTaskElement) {
-
-        // Drag START
-        domTaskElement.addEventListener('dragstart', function dragstart(ev) {
-            ev.dataTransfer.setData('text', ev.target.id);
-        });
-        
-        domTaskElement.draggable = true;
-    }
-
     function initFolderComponent(domFolderElement, callback) {
 
         var DOMElem = domFolderElement;
@@ -33,11 +23,6 @@
         var elem = document.getElementById(data);
         target.appendChild(elem)
     }
-
-    var tasks = $('.task');
-    tasks.map(function(i, task) {
-        initTaskComponent(task);
-    });
 
     var folders = $('.folder');
     folders.map(function(i, folder) {
