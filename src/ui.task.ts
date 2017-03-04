@@ -1,23 +1,17 @@
+class UITask {
+    _elementId: string;
 
-(function() {
+    constructor(domTaskElement: HTMLElement) {
 
-    function onDragStart(target) : boolean
-    {
-        return true;
-    }
+        this._elementId = domTaskElement.id;
 
-    function attach(domTaskElement) {
-
-        let element_id = domTaskElement.id;
-
-        // Drag START
-        domTaskElement.addEventListener('dragstart', function dragstart(ev) {
+        domTaskElement.addEventListener('dragstart', ev => {
             
-            let allowDrag = onDragStart(element_id);
+            let allowDrag = this.onDragStart(this._elementId);
 
             if(allowDrag)
             {
-                ev.dataTransfer.setData('text', element_id);
+                ev.dataTransfer.setData('text', this._elementId);
             }
             else
             {
@@ -28,10 +22,14 @@
         domTaskElement.draggable = true;
     }
 
-    var tasks : Array<Element> = document.querySelectorAll('.task') as any;
-    tasks.forEach( task => attach(task) );    
+    private onDragStart(target) : boolean
+    {
+        return true;
+    }
 
-})();
+}
 
-
+// Setup
+var tasks : any = document.querySelectorAll('.task');
+tasks.forEach( task => new UITask(task) );   
 
