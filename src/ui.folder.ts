@@ -1,33 +1,47 @@
-(function() {
+class UIFolder {
 
-    function initFolderComponent(domFolderElement, callback) {
+    public onDrop: any;
+    _folderId: string;
 
-        var DOMElem = domFolderElement;
-        var DOMcallback = callback;
-        
+    constructor(domFolderElement) {
+
+        if(domFolderElement.id == null || domFolderElement.id == '')
+            throw "UIFolder: HTML Element has no ID property";
+
+        this._folderId = domFolderElement.id;
+
         // Drag DURING
-        domFolderElement.addEventListener('dragover', function dragover(ev) {
+        domFolderElement.addEventListener('dragover', ev => {
             ev.preventDefault();
         });
 
         // Drag ENDS
-        domFolderElement.addEventListener('drop', function drop(ev, callback) {
+        domFolderElement.addEventListener('drop', ev => {
             ev.preventDefault();
-            var data = ev.dataTransfer.getData('text');
 
-            DOMcallback(DOMElem, data);
+            var taskId = ev.dataTransfer.getData('text');
+
+            this.onDrop(this._folderId, taskId);
         });    
     }
 
-    function assign(target, data) {
+}
+
+
+// Setup
+var folders : any = document.querySelectorAll('.folder');
+var i = 0;
+
+folders.forEach( folder => {
+
+    folder.id = "folder_id" + (i++).toString()
+
+    var f = new UIFolder(folder);
+    
+    f.onDrop = function assign(targetid, data) {
+        var target = document.getElementById(targetid);
         var elem = document.getElementById(data);
-        target.appendChild(elem)
-    }
+        target.appendChild(elem);
+    };
 
-    var folders : Array<Element> = document.querySelectorAll('.folder') as any;
-    folders.forEach( task => initFolderComponent(task, assign) );        
-
-})();
-
-
-
+} );  
