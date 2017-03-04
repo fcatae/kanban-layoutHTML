@@ -1,6 +1,8 @@
 class UIFolder {
 
-    public onDrop: any;
+    public onDrop = function(folderId: string, taskId: string, event: DragEvent) {};
+    public onDragOver = function(folderId: string, taskId: string, event: DragEvent) { return true; };
+
     _folderId: string;
 
     constructor(domFolderElement) {
@@ -12,16 +14,25 @@ class UIFolder {
 
         // Drag DURING
         domFolderElement.addEventListener('dragover', ev => {
-            ev.preventDefault();
+
+            var taskId = ev.dataTransfer.getData('text');
+
+            if( this.onDragOver(this._folderId, taskId, ev) ) {
+                ev.preventDefault();
+            }
         });
 
         // Drag ENDS
         domFolderElement.addEventListener('drop', ev => {
-            ev.preventDefault();
 
             var taskId = ev.dataTransfer.getData('text');
 
-            this.onDrop(this._folderId, taskId);
+            if( this.onDragOver(this._folderId, taskId, ev) ) {
+                ev.preventDefault();
+                
+                this.onDrop(this._folderId, taskId, ev);
+            }           
+
         });    
     }
 

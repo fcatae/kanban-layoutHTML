@@ -1,13 +1,19 @@
 class UITask {
+
+    public onDragStart = function(taskId: string, event: DragEvent) { return true; };
+
     _elementId: string;
 
     constructor(domTaskElement: HTMLElement) {
+
+        if(domTaskElement.id == null || domTaskElement.id == '')
+            throw "UITask: HTML Element has no ID property";
 
         this._elementId = domTaskElement.id;
 
         domTaskElement.addEventListener('dragstart', ev => {
             
-            let allowDrag = this.onDragStart(this._elementId);
+            let allowDrag = this.onDragStart(this._elementId, ev);
 
             if(allowDrag)
             {
@@ -20,11 +26,6 @@ class UITask {
         });
         
         domTaskElement.draggable = true;
-    }
-
-    private onDragStart(target) : boolean
-    {
-        return true;
     }
 
 }
