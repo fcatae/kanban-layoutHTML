@@ -24,10 +24,8 @@
         target.appendChild(elem)
     }
 
-    var folders = $('.folder');
-    folders.map(function(i, folder) {
-        initFolderComponent(folder, assign);           
-    });
+    var folders : Array<Element> = document.querySelectorAll('.folder') as any;
+    folders.forEach( task => initFolderComponent(task, assign) );        
 
 })();
 
