@@ -2,7 +2,12 @@
 // include 'viewmodel'
 // include 'ui'
 
-// setup
+// setup: dependency injection
+//   proxy
+//   viewmodel
+
+// init folders
+//   proxy: get_folders
 //   viewmodel: create the folders
 
 // initial state
@@ -22,4 +27,7 @@
 //   update_state(task, folder src, folder dst)
 
 // ui.event: modify task
+//   update_data
+
+// proxy.event: update task
 //   update_data
