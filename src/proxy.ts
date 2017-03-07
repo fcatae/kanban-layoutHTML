@@ -1,7 +1,7 @@
 // abstract calls
 //  eg. call Kanban REST API
 
-class WorkspaceProxy {    
+class WorkspaceAPI {    
 
     // GET workspaces/<wid>/folders/default
     public getDefaultFolderId() : string {
@@ -45,18 +45,35 @@ class WorkspaceFolderProxy {
 }
 
 class TaskCollectionProxy {
-    id: string;
-    tasks: Array<TaskProxy>;
+    workspaceId: string;
+    folderId: string;
+    taskId: string;
+
+    taskList: Array<TaskProxy>;
     next: TaskCollectionProxy | null;
 }
 
 class TaskProxy {    
+    // workspaceId: string;
+    // folderId: string;
     id: string;
+    uniqueId: string;
     title: string;
     preview: string;
 }
 
+class TaskDataProxy {
+    // workspaceId: string;
+    // folderId: string;
+    // id: string;
+    timestamp: number;
+    uniqueId: string;
+    data: string;
+}
+
 class TaggedTaskProxy {    
+    // workspaceId: string;
+    // folderId: string;
     id: string;
     title: string;
     preview: string;
